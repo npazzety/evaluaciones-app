@@ -1,24 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { Router, CanActivateFn } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private loggedIn = false;
+export const authGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
 
-  constructor() {}
+  // Revisamos si existe la señal en el almacenamiento del navegador
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
-  login() {
-    this.loggedIn = true;
-    localStorage.setItem('token', 'fake-jwt-token'); // Simulamos el token por ahora
+  if (isLoggedIn) {
+    return true; // Deja pasar
+  } else {
+    // Si no está logueado, lo manda al login
+    router.navigate(['/login']);
+    return false;
   }
-
-  logout() {
-    this.loggedIn = false;
-    localStorage.removeItem('token');
-  }
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
-  }
-}
+};
