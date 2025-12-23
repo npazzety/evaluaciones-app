@@ -1,3 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+@plugin "daisyui";
+
+@media print {
+  /* Oculta todo excepto el reporte */
+  body * {
+    visibility: hidden;
+  }
+  #seccion-reporte-2024, #seccion-reporte-2024 * {
+    visibility: visible;
+    color: black !important;
+    background: white !important;
+  }
+  #seccion-reporte-2024 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  /* Quita los oklch que rompen la impresión */
+  * {
+    color: black !important;
+  }
+}

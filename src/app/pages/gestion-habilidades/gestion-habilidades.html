@@ -1,0 +1,26 @@
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-6">Panel de Control: Habilidades Corporativas</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    @for (hab of habilidades(); track hab.id) {
+      <div class="card bg-base-100 border border-base-300 p-4 shadow-sm flex-row items-center justify-between">
+        <div>
+          <h3 class="font-bold">{{ hab.nombre }}</h3>
+          <div class="badge badge-sm" [class.badge-primary]="hab.tipo === 'Tecnica'">{{ hab.tipo }}</div>
+        </div>
+
+        <div class="form-control">
+          <label class="label cursor-pointer space-x-4">
+            <span class="label-text text-xs uppercase font-semibold">
+              {{ hab.activa ? 'Habilitada' : 'Deshabilitada' }}
+            </span>
+            <input type="checkbox"
+                   class="toggle toggle-success"
+                   [checked]="hab.activa"
+                   (change)="cambiarEstado(hab.id)" />
+          </label>
+        </div>
+      </div>
+    }
+  </div>
+</div>

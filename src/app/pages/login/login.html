@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-gray-200 flex items-center justify-center p-4">
+  <div class="bg-white rounded-[3rem] shadow-2xl flex flex-col md:flex-row max-w-4xl w-full overflow-hidden">
+
+    <div class="md:w-5/12 bg-[#002855] p-12 flex flex-col justify-center items-center relative md:rounded-r-[5rem] z-20 shadow-2xl">
+      <div class="relative z-10 text-center">
+        <div class="w-36 h-36 bg-white/10 rounded-full flex items-center justify-center border-2 border-white/20 mb-6 mx-auto overflow-hidden">
+           <img src="assets/logo-espresso.png" alt="Espresso Americano" class="w-28 h-auto opacity-90" />
+        </div>
+        <h1 class="text-white font-black text-2xl tracking-tighter uppercase">Espresso Americano</h1>
+        <div class="h-1.5 w-14 bg-[#C49A6C] mx-auto mt-3 rounded-full"></div>
+      </div>
+    </div>
+
+    <div class="md:w-7/12 p-8 md:p-20 bg-white">
+      <div class="text-center mb-12">
+        <h2 class="text-[#333] font-black text-2xl uppercase tracking-widest leading-tight">
+          Portal de Evaluación
+        </h2>
+        <p class="text-gray-400 mt-2 font-medium">Ingresa a tu cuenta</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-8">
+
+        <div class="form-control w-full">
+          <label class="label p-1">
+            <span class="label-text font-bold text-gray-500 uppercase text-[10px] tracking-widest">Correo Electrónico</span>
+          </label>
+          <input
+            formControlName="email"
+            type="email"
+            placeholder="ejemplo@espresso.com"
+            class="input input-ghost w-full border-b-2 px-0 py-7 text-lg transition-all outline-none rounded-none focus:bg-transparent"
+            [ngClass]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid ? 'border-red-500' : 'border-gray-200 focus:border-[#002855]'"
+          />
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
+            <span class="text-[10px] text-red-500 mt-1 font-bold italic">El formato de correo es inválido</span>
+          }
+        </div>
+
+        <div class="form-control w-full">
+          <label class="label p-1">
+            <span class="label-text font-bold text-gray-500 uppercase text-[10px] tracking-widest">Contraseña</span>
+          </label>
+          <div class="relative">
+            <input
+              formControlName="password"
+              [type]="passwordVisible ? 'text' : 'password'"
+              placeholder="••••••••"
+              class="input input-ghost w-full border-b-2 px-0 py-7 text-lg transition-all outline-none rounded-none focus:bg-transparent"
+              [ngClass]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid ? 'border-red-500' : 'border-gray-200 focus:border-[#002855]'"
+            />
+
+            <button
+              type="button"
+              class="absolute right-0 bottom-4 text-gray-400 hover:text-[#002855] transition-colors touch-none"
+              (mousedown)="mostrarPassword()"
+              (mouseup)="ocultarPassword()"
+              (mouseleave)="ocultarPassword()"
+              (touchstart)="mostrarPassword()"
+              (touchend)="ocultarPassword()"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-8">
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid"
+            class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-56 rounded-full border-none shadow-xl block mx-auto text-xl normal-case h-16 disabled:bg-gray-300 disabled:text-gray-500"
+          >
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
