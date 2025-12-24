@@ -1,25 +1,77 @@
-<div class="p-6">
-  <h1 class="text-2xl font-bold mb-6">Panel de Control: Habilidades Corporativas</h1>
+<div class="p-6 max-w-5xl mx-auto space-y-6">
+  <div class="bg-base-100 p-6 rounded-box border border-base-300 shadow-sm mb-6">
+    <h1 class="text-3xl font-black text-primary italic">Panel de Control (Jefe)</h1>
+  </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    @for (hab of habilidades(); track hab.id) {
-      <div class="card bg-base-100 border border-base-300 p-4 shadow-sm flex-row items-center justify-between">
-        <div>
-          <h3 class="font-bold">{{ hab.nombre }}</h3>
-          <div class="badge badge-sm" [class.badge-primary]="hab.tipo === 'Tecnica'">{{ hab.tipo }}</div>
+  <div role="tablist" class="tabs tabs-lifted tabs-lg w-full">
+    <button role="tab" class="tab" [class.tab-active]="tabActiva() === 'crear'" (click)="tabActiva.set('crear')">
+      Nueva Evaluación
+    </button>
+    <button role="tab" class="tab" [class.tab-active]="tabActiva() === 'historial'" (click)="tabActiva.set('historial')">
+      Historial de Programación
+    </button>
+  </div>
+
+  <div class="bg-base-100 border-x border-b border-base-300 rounded-b-box p-8 shadow-sm">
+
+    @if (tabActiva() === 'crear') {
+      <div class="space-y-8 animate-in fade-in duration-300">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control">
+            <label class="label font-bold">Fecha de Inicio</label>
+            <input type="date" [(ngModel)]="nuevaConfig.fechaInicio" class="input input-bordered input-primary" />
+          </div>
+          <div class="form-control">
+            <label class="label font-bold">Hora de Inicio</label>
+            <input type="time" [(ngModel)]="nuevaConfig.horaInicio" class="input input-bordered input-primary" />
+          </div>
         </div>
 
-        <div class="form-control">
-          <label class="label cursor-pointer space-x-4">
-            <span class="label-text text-xs uppercase font-semibold">
-              {{ hab.activa ? 'Habilitada' : 'Deshabilitada' }}
-            </span>
-            <input type="checkbox"
-                   class="toggle toggle-success"
-                   [checked]="hab.activa"
-                   (change)="cambiarEstado(hab.id)" />
-          </label>
+        <div class="divider text-sm opacity-50 uppercase tracking-widest">Habilidades para Evaluar</div>
+
+        <div class="flex flex-wrap gap-3">
+          @for (h of habilidades(); track h.id) {
+            <div
+              (click)="habilidadesService.toggleHabilidad(h.id)"
+              class="badge badge-lg py-6 px-6 cursor-pointer transition-all border-2"
+              [class]="h.activa ? 'badge-primary' : 'badge-ghost opacity-50'">
+              <span class="mr-2 font-black">{{ h.activa ? '✓' : '+' }}</span>
+              {{ h.nombre }}
+            </div>
+          }
         </div>
+
+        <div class="pt-6">
+          <button (click)="crearEvaluacion()" class="btn btn-primary btn-block text-white font-black shadow-xl">
+            GUARDAR Y ACTIVAR EVALUACIÓN
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (tabActiva() === 'historial') {
+      <div class="space-y-4 animate-in slide-in-from-right duration-300">
+        @for (p of programaciones(); track p.id) {
+          <div class="flex items-center justify-between bg-base-200/50 p-6 rounded-2xl border border-base-300 hover:border-primary transition-colors">
+            <div class="flex items-center gap-6">
+              <div class="bg-primary text-white p-4 rounded-xl shadow-lg font-black italic">
+                #{{ p.id.toString().slice(-3) }}
+              </div>
+              <div>
+                <h4 class="text-xl font-bold italic">{{ p.fechaInicio }} a las {{ p.horaInicio }}</h4>
+                <p class="text-xs opacity-50 uppercase tracking-tighter">Incluye {{ p.habilidadesIds.length }} habilidades</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="badge badge-success font-bold px-4 py-3">Activa</div>
+              <button (click)="eliminar(p.id)" class="btn btn-circle btn-error btn-outline btn-sm">✕</button>
+            </div>
+          </div>
+        } @empty {
+          <div class="text-center py-20 opacity-30">
+            <p class="text-2xl font-bold italic">No hay evaluaciones guardadas</p>
+          </div>
+        }
       </div>
     }
   </div>

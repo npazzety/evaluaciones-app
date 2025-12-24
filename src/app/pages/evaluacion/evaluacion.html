@@ -15,23 +15,24 @@
   <div role="tablist" class="tabs tabs-lifted tabs-lg w-full">
 
     <input type="radio" name="tabs_eval" role="tab" class="tab" aria-label="Nueva Evaluación" checked />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-8 shadow-sm">
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-8 shadow-sm min-h-[400px]">
 
-      @if (habilidadesActivas().length === 0) {
-        <div class="flex flex-col items-center justify-center py-20 text-center space-y-4">
-          <div class="bg-base-200 p-6 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      @if (!accesoPermitido()) {
+        <div class="flex flex-col items-center justify-center py-20 text-center space-y-4 animate-in fade-in zoom-in duration-300">
+          <div class="bg-base-200 p-8 rounded-full text-warning">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold opacity-70">Aún no es tiempo de evaluar</h3>
-            <p class="text-sm opacity-50 max-w-xs mx-auto">Tu jefe aún no ha habilitado las competencias para este periodo.</p>
+            <h3 class="text-2xl font-bold text-base-content">Acceso no habilitado</h3>
+            <p class="text-base-content/60 max-w-md mx-auto mt-2">{{ mensajeError() }}</p>
           </div>
+          <button class="btn btn-ghost btn-sm" (click)="verificarCronograma()">Actualizar estado</button>
         </div>
       }
 
-      @else if (!evaluacionSeleccionada()) {
+      @else if (accesoPermitido() && !evaluacionSeleccionada()) {
         <h2 class="text-2xl font-bold mb-6 italic text-base-content">Evaluaciones Pendientes</h2>
         <div class="grid gap-4">
           <div class="card bg-base-100 border border-primary/30 shadow-md hover:shadow-lg transition-all cursor-pointer" (click)="abrirEvaluacion()">
@@ -44,10 +45,10 @@
                 </div>
                 <div>
                   <h4 class="text-lg font-bold">Autoevaluación de Desempeño 2025</h4>
-                  <p class="text-xs opacity-60 italic">Contiene {{ habilidadesActivas().length }} competencias</p>
+                  <p class="text-xs opacity-60 italic">Contiene {{ habilidadesActivas().length }} habilidades asignadas</p>
                 </div>
               </div>
-              <button class="btn btn-primary text-white font-bold px-8">Comenzar</button>
+              <button class="btn btn-primary text-white font-bold px-8">Comenzar Ahora</button>
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@
           <button (click)="cancelar()" class="btn btn-circle btn-ghost btn-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <h2 class="text-2xl font-bold italic text-base-content">Paso 1: Mi Autopercepción</h2>
+          <h2 class="text-2xl font-bold italic text-base-content">Mi Autopercepción</h2>
         </div>
 
         <div class="grid gap-12">
@@ -116,44 +117,34 @@
     <input type="radio" name="tabs_eval" role="tab" class="tab" aria-label="Mi Historial" />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-8">
       <h2 class="text-2xl font-bold mb-6 text-base-content">Registro Histórico Personal</h2>
-      <p class="text-sm opacity-60 mb-8">Consulta tus resultados comparados con el feedback de tu jefe.</p>
-
-      <div class="space-y-4">
-        <div class="collapse collapse-arrow bg-base-200 border border-base-300">
-          <input type="checkbox" />
-          <div class="collapse-title text-lg font-bold flex items-center gap-3 text-base-content">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-warning" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-            Resultados Ciclo 2024
+      <div class="collapse collapse-arrow bg-base-200 border border-base-300">
+        <input type="checkbox" />
+        <div class="collapse-title text-lg font-bold flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-warning" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+          Resultados Ciclo 2024
+        </div>
+        <div class="collapse-content">
+          <div class="flex justify-end my-4">
+            <button class="btn btn-sm btn-error btn-outline font-bold" (click)="descargarPDF()">Exportar PDF</button>
           </div>
-          <div class="collapse-content px-4">
-            <div class="flex justify-end my-4">
-              <button class="btn btn-sm btn-error btn-outline gap-2 font-bold" (click)="descargarPDF()">
-                Exportar Reporte a PDF
-              </button>
-            </div>
-            <div class="overflow-x-auto bg-base-100 rounded-xl border border-base-300 shadow-sm">
-              <table class="table table-zebra w-full text-base-content">
-                <thead class="bg-base-200">
-                  <tr>
-                    <th>Habilidad</th>
-                    <th class="text-center">Mi Nota</th>
-                    <th class="text-center">Nota Jefe</th>
-                    <th class="text-center">Dif.</th>
-                    <th>Observaciones del Jefe</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="hover">
-                    <td class="font-bold">Angular v19</td>
-                    <td class="text-center font-semibold">8</td>
-                    <td class="text-center font-bold text-primary">9</td>
-                    <td class="text-center"><span class="badge badge-success font-bold">+1</span></td>
-                    <td class="max-w-xs text-[11px] italic opacity-70">"Supera expectativas en el uso de signals."</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <table class="table table-zebra w-full bg-base-100 rounded-lg overflow-hidden">
+            <thead>
+              <tr class="bg-base-300">
+                <th>Habilidad</th>
+                <th class="text-center">Mi Nota</th>
+                <th class="text-center">Nota Jefe</th>
+                <th>Comentarios</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-bold text-primary">Angular v19</td>
+                <td class="text-center">8</td>
+                <td class="text-center font-bold">9</td>
+                <td class="italic text-xs">Excelente progreso con signals.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

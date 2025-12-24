@@ -1,4 +1,5 @@
 export interface Habilidad {
+  nota: number;
   id: number;
   nombre: string;
   tipo: 'Tecnica' | 'Blanda';
