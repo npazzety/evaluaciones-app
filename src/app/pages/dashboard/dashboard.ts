@@ -13,6 +13,7 @@ export class Dashboard {
 
   // Obtenemos el rol del localStorage
   userRole: string | null = localStorage.getItem('userRole');
+  emailUsuario: string | null = localStorage.getItem('userEmail');
 
   logout() {
     localStorage.clear(); // Limpia todo (auth y rol)
