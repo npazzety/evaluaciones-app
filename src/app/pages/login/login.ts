@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html'
 })
 export class Login {
@@ -15,7 +15,9 @@ export class Login {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
+      // Validación: Requerido y formato email
       email: ['', [Validators.required, Validators.email]],
+      // Validación: Requerido y mínimo 4 caracteres
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
@@ -24,29 +26,29 @@ export class Login {
   ocultarPassword() { this.passwordVisible = false; }
 
   ingresar() {
+  console.log('Intentando ingresar...');
+
   if (this.loginForm.valid) {
     const { email } = this.loginForm.value;
 
-    // 1. Definimos quiénes pueden entrar (Simulando base de datos)
-    const usuariosPermitidos = ['jefe@test.com', 'empleado@test.com', 'test@espresso.com'];
+    // 1. LISTA DE USUARIOS PERMITIDOS (O puedes validar por dominio @espressoamericano.com.hn)
+    const usuariosPermitidos = ['jefe@test.com', 'empleado@test.com'];
 
-    // 2. Verificamos si el correo está en la lista
     if (!usuariosPermitidos.includes(email)) {
       alert('Acceso denegado: Este correo no está registrado en el sistema.');
-      return;
+      return; // Detiene la ejecución aquí
     }
 
-    // 3. Si el correo es válido, guardamos la sesión
+    // 2. Si es un usuario permitido, guardamos sesión
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userEmail', email);
 
-    // 4. Redireccionamos según el rol
+    // 3. Navegación
     if (email === 'jefe@test.com') {
       this.router.navigate(['/dashboard/gestion']);
     } else {
       this.router.navigate(['/dashboard/evaluacion']);
     }
-
   } else {
     this.loginForm.markAllAsTouched();
   }

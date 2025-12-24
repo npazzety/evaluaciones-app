@@ -1,22 +1,21 @@
 import { inject } from '@angular/core';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, CanActivateFn } from '@angular/router';
 
-export const authGuard = (route: ActivatedRouteSnapshot) => {
+export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const isAuth = localStorage.getItem('isAuthenticated') === 'true';
-  const userRole = localStorage.getItem('userRole');
 
-  if (!isAuth) {
-    router.navigate(['/login']);
-    return false;
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const userEmail = localStorage.getItem('userEmail');
+
+  // 1. SI NO HAY SESIÓN: Bloqueo total y al Login
+  if (!isLoggedIn || !userEmail) {
+    return router.parseUrl('/login');
   }
 
-  // Lógica de protección por Rol
-  // Si la ruta que intenta acceder es 'gestion' y no es ADMIN, lo bloqueamos
-  if (route.routeConfig?.path === 'gestion' && userRole !== 'ADMIN') {
-    router.navigate(['/dashboard/evaluacion']); // Lo mandamos a su área permitida
-    return false;
+  // 2. SEGURIDAD DE ROL: Si un empleado intenta entrar a gestión por URL
+  if (state.url.includes('gestion') && userEmail !== 'jefe@test.com') {
+    return router.parseUrl('/dashboard/prohibido');
   }
 
-  return true;
+  return true; // Acceso permitido
 };

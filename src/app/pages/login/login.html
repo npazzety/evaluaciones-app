@@ -4,55 +4,55 @@
     <div class="md:w-5/12 bg-[#002855] p-12 flex flex-col justify-center items-center relative md:rounded-r-[5rem] z-20 shadow-2xl">
       <div class="relative z-10 text-center">
         <div class="w-36 h-36 bg-white/10 rounded-full flex items-center justify-center border-2 border-white/20 mb-6 mx-auto overflow-hidden">
-           <img src="assets/logo-espresso.png" alt="Espresso Americano" class="w-28 h-auto opacity-90" />
+           <img src="images/Espresso Americano.jpeg" alt="Logo" class="w-full h-full object-cover" />
         </div>
         <h1 class="text-white font-black text-2xl tracking-tighter uppercase">Espresso Americano</h1>
-        <div class="h-1.5 w-14 bg-[#C49A6C] mx-auto mt-3 rounded-full"></div>
+        <div class="h-1.5 w-14 bg-[#ffff] mx-auto mt-3 rounded-full"></div>
       </div>
     </div>
 
     <div class="md:w-7/12 p-8 md:p-20 bg-white">
       <div class="text-center mb-12">
-        <h2 class="text-[#333] font-black text-2xl uppercase tracking-widest leading-tight">
-          Portal de Evaluación
-        </h2>
-        <p class="text-gray-400 mt-2 font-medium">Ingresa a tu cuenta</p>
+        <h2 class="text-[#333] font-black text-2xl uppercase tracking-widest">Portal de Evaluación</h2>
+        <p class="text-gray-400 mt-2">Ingresa tus credenciales</p>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-8">
 
         <div class="form-control w-full">
-          <label class="label p-1">
+          <label class="label p-1 px-8">
             <span class="label-text font-bold text-gray-500 uppercase text-[10px] tracking-widest">Correo Electrónico</span>
           </label>
           <input
+            style="border-radius: 15px;"
             formControlName="email"
             type="email"
             placeholder="ejemplo@espresso.com"
-            class="input input-ghost w-full border-b-2 px-0 py-7 text-lg transition-all outline-none rounded-none focus:bg-transparent"
+            class="input input-ghost w-full border-b-2 px-8 py-8 text-lg transition-all outline-none rounded-none focus:bg-transparent"
             [ngClass]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid ? 'border-red-500' : 'border-gray-200 focus:border-[#002855]'"
           />
-          @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
-            <span class="text-[10px] text-red-500 mt-1 font-bold italic">El formato de correo es inválido</span>
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+            <p class="text-[10px] text-red-500 mt-1 font-bold px-8 italic">Correo electrónico requerido o inválido</p>
           }
         </div>
 
         <div class="form-control w-full">
-          <label class="label p-1">
+          <label class="label p-1 px-8">
             <span class="label-text font-bold text-gray-500 uppercase text-[10px] tracking-widest">Contraseña</span>
           </label>
           <div class="relative">
             <input
+              style="border-radius: 15px;"
               formControlName="password"
               [type]="passwordVisible ? 'text' : 'password'"
               placeholder="••••••••"
-              class="input input-ghost w-full border-b-2 px-0 py-7 text-lg transition-all outline-none rounded-none focus:bg-transparent"
+              class="input input-ghost w-full border-b-2 px-8 py-8 text-lg transition-all outline-none rounded-none focus:bg-transparent"
               [ngClass]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid ? 'border-red-500' : 'border-gray-200 focus:border-[#002855]'"
             />
 
             <button
               type="button"
-              class="absolute right-0 bottom-4 text-gray-400 hover:text-[#002855] transition-colors touch-none"
+              class="absolute right-6 bottom-5 text-gray-400 hover:text-[#002855] cursor-pointer touch-none"
               (mousedown)="mostrarPassword()"
               (mouseup)="ocultarPassword()"
               (mouseleave)="ocultarPassword()"
@@ -65,19 +65,22 @@
               </svg>
             </button>
           </div>
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+            <p class="text-[10px] text-red-500 mt-1 font-bold px-8 italic">Mínimo 4 caracteres</p>
+          }
         </div>
 
-        <div class="pt-8">
+        <div class="pt-8 text-center">
           <button
             type="submit"
             [disabled]="loginForm.invalid"
-            class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-56 rounded-full border-none shadow-xl block mx-auto text-xl normal-case h-16 disabled:bg-gray-300 disabled:text-gray-500"
+            class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-64 rounded-full border-none shadow-xl text-xl normal-case h-16 disabled:bg-gray-300 transition-all"
           >
             Ingresar
           </button>
         </div>
+
       </form>
     </div>
-
   </div>
 </div>

@@ -11,14 +11,12 @@ import autoTable from 'jspdf-autotable';
   templateUrl: './evaluacion.html'
 })
 export class Evaluacion {
-  // Simulación de habilidades enviadas por el jefe
-  // Si dejas este array vacío [], verás el mensaje de "No habilitado"
+  // Se agrega la propiedad 'nota' para controlarla individualmente
   habilidadesActivas = signal([
-    { id: 1, nombre: 'Angular v19', tipo: 'Hard' },
-    { id: 2, nombre: 'Comunicación Asertiva', tipo: 'Soft' }
+    { id: 1, nombre: 'Angular v19', tipo: 'Hard', nota: 5 },
+    { id: 2, nombre: 'Comunicación Asertiva', tipo: 'Soft', nota: 5 }
   ]);
 
-  // Controla si el usuario entró a ver el formulario
   evaluacionSeleccionada = signal<boolean>(false);
 
   abrirEvaluacion() {
@@ -32,16 +30,15 @@ export class Evaluacion {
   enviarEvaluacion() {
     alert('¡Tu autoevaluación ha sido enviada con éxito!');
     this.evaluacionSeleccionada.set(false);
-    // Aquí normalmente limpiarías el array o cambiarías el estado en la DB
   }
 
   descargarPDF() {
     const doc = new jsPDF();
-    doc.text('Reporte de Evaluación 2024', 14, 20);
+    doc.text('Reporte de Evaluación 2025', 14, 20);
     autoTable(doc, {
       startY: 30,
       head: [['Habilidad', 'Nota']],
-      body: this.habilidadesActivas().map(h => [h.nombre, 'Pendiente'])
+      body: this.habilidadesActivas().map(h => [h.nombre, h.nota])
     });
     doc.save('mi_historial.pdf');
   }
