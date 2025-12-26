@@ -16,13 +16,22 @@ export class GestionHabilidades {
   habilidades = this.habilidadesService.getHabilidades();
   programaciones = this.habilidadesService.getProgramaciones();
 
-  tabActiva = signal<'crear' | 'historial'>('crear');
+  // Signal para controlar la vista (Lista vs Formulario)
+  modoFormulario = signal<boolean>(false);
 
   nuevaConfig = {
     fechaInicio: '',
     horaInicio: '',
     habilitadoManual: true
   };
+
+  alternarVista() {
+    this.modoFormulario.update(val => !val);
+    if (!this.modoFormulario()) {
+      // Reset de campos al volver
+      this.nuevaConfig = { fechaInicio: '', horaInicio: '', habilitadoManual: true };
+    }
+  }
 
   crearEvaluacion() {
     if (!this.nuevaConfig.fechaInicio || !this.nuevaConfig.horaInicio) {
@@ -47,7 +56,7 @@ export class GestionHabilidades {
 
     this.habilidadesService.guardarEvaluacion(nueva);
     alert("🚀 Evaluación Programada y Habilitada");
-    this.tabActiva.set('historial');
+    this.modoFormulario.set(false); // Volver al historial
   }
 
   eliminar(id: number) {

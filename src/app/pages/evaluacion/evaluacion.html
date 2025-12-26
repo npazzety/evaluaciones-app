@@ -1,12 +1,11 @@
 <div class="p-6 max-w-6xl mx-auto space-y-8">
-
   <header class="flex justify-between items-center bg-base-100 p-6 rounded-box border border-base-300 shadow-sm">
     <div>
       <h1 class="text-3xl font-black tracking-tight text-primary">Portal de Evaluación</h1>
-      <p class="text-base-content/60 italic">Gestión de desempeño y feedback</p>
+      <p class="text-base-content/60 italic">Gestión de desempeño y feedback continuo</p>
     </div>
-    <div class="flex flex-col items-end text-white">
-      <div class="badge badge-success badge-lg gap-2 py-4 px-6 font-bold shadow-sm">
+    <div class="flex flex-col items-end">
+      <div class="badge badge-success badge-lg gap-2 py-4 px-6 font-bold shadow-sm text-white">
         Periodo 2025
       </div>
     </div>
@@ -33,7 +32,7 @@
       }
 
       @else if (accesoPermitido() && !evaluacionSeleccionada()) {
-        <h2 class="text-2xl font-bold mb-6 italic text-base-content">Evaluaciones Pendientes</h2>
+        <h2 class="text-2xl font-bold mb-6 italic text-base-content flex-10">Evaluaciones Pendientes</h2>
         <div class="grid gap-4">
           <div class="card bg-base-100 border border-primary/30 shadow-md hover:shadow-lg transition-all cursor-pointer" (click)="abrirEvaluacion()">
             <div class="card-body flex-row justify-between items-center p-6">
@@ -45,7 +44,7 @@
                 </div>
                 <div>
                   <h4 class="text-lg font-bold">Autoevaluación de Desempeño 2025</h4>
-                  <p class="text-xs opacity-60 italic">Contiene {{ habilidadesActivas().length }} habilidades asignadas</p>
+                  <p class="text-xs opacity-60 italic">Contiene {{ habilidadesActivas().length }} habilidades asignadas por el Jefe</p>
                 </div>
               </div>
               <button class="btn btn-primary text-white font-bold px-8">Comenzar Ahora</button>
@@ -57,38 +56,34 @@
       @else {
         <div class="flex items-center gap-4 mb-8">
           <button (click)="cancelar()" class="btn btn-circle btn-ghost btn-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
           <h2 class="text-2xl font-bold italic text-base-content">Mi Autopercepción</h2>
         </div>
 
         <div class="grid gap-12">
           @for (hab of habilidadesActivas(); track hab.id) {
-            <div class="card bg-base-200/40 border border-base-300">
+            <div class="card bg-base-200/40 border border-base-300 shadow-sm">
               <div class="card-body p-8">
                 <div class="flex justify-between items-center mb-8">
                   <div class="flex gap-4 items-center">
-                    <div class="avatar placeholder">
-                      <div class="bg-primary text-primary-content rounded-xl w-14 shadow-lg flex items-center justify-center font-black text-white text-xl">
-                        {{ hab.nombre.charAt(0) }}
-                      </div>
+                    <div class="bg-primary text-white rounded-xl w-14 h-14 shadow-lg flex items-center justify-center font-black text-xl">
+                      {{ hab.nombre.charAt(0) }}
                     </div>
                     <div>
                       <h3 class="text-xl font-bold text-base-content">{{ hab.nombre }}</h3>
                       <div class="badge badge-secondary badge-outline text-[10px] font-bold uppercase">{{ hab.tipo }}</div>
                     </div>
                   </div>
-                  <div class="text-6xl font-black text-primary drop-shadow-sm tabular-nums transition-all">
+                  <div class="text-6xl font-black text-primary drop-shadow-sm tabular-nums">
                     {{ hab.nota }}
                   </div>
                 </div>
 
                 <div class="w-full relative px-1">
-                  <input
-                    type="range" min="0" max="10" step="1"
-                    [(ngModel)]="hab.nota"
-                    class="range range-primary range-lg w-full"
-                  />
+                  <input type="range" min="0" max="10" step="1" [(ngModel)]="hab.nota" class="range range-primary range-lg w-full" />
                   <div class="flex justify-between mt-4 px-1">
                     @for (num of [0,1,2,3,4,5,6,7,8,9,10]; track num) {
                       <div class="flex flex-col items-center w-0 overflow-visible text-base-content">
@@ -115,39 +110,61 @@
     </div>
 
     <input type="radio" name="tabs_eval" role="tab" class="tab" aria-label="Mi Historial" />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-8">
-      <h2 class="text-2xl font-bold mb-6 text-base-content">Registro Histórico Personal</h2>
-      <div class="collapse collapse-arrow bg-base-200 border border-base-300">
-        <input type="checkbox" />
-        <div class="collapse-title text-lg font-bold flex items-center gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-warning" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-8 shadow-sm">
+      <h2 class="text-2xl font-bold mb-6 text-base-content" >Registro Histórico Personal</h2>
+
+      <div class="collapse collapse-plus bg-base-200 border border-base-300 mb-4 shadow-sm">
+        <input type="checkbox" checked />
+        <div class="collapse-title text-xl font-bold flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-warning" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+          </svg>
           Resultados Ciclo 2024
         </div>
-        <div class="collapse-content">
-          <div class="flex justify-end my-4">
-            <button class="btn btn-sm btn-error btn-outline font-bold" (click)="descargarPDF()">Exportar PDF</button>
+
+        <div class="collapse-content space-y-4">
+
+          <div class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-xl shadow-sm">
+            <input type="checkbox" />
+            <div class="collapse-title flex items-center gap-3 font-semibold text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Autoevaluación_Final_Dic.pdf
+              <span class="badge badge-sm badge-success ml-auto text-white font-bold">Completado</span>
+            </div>
+
+            <div class="collapse-content overflow-hidden">
+              <div class="flex justify-end my-4 gap-2">
+                <button class="btn btn-sm btn-error btn-outline font-bold" (click)="descargarPDF()">
+                  Exportar PDF
+                </button>
+              </div>
+              <div class="overflow-x-auto rounded-lg border border-base-200">
+                <table class="table table-zebra w-full bg-base-100">
+                  <thead class="bg-base-300">
+                    <tr>
+                      <th>Habilidad</th>
+                      <th class="text-center">Mi Nota</th>
+                      <th class="text-center">Nota Jefe</th>
+                      <th>Comentarios</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-bold text-primary">Angular v19</td>
+                      <td class="text-center font-bold">8</td>
+                      <td class="text-center font-bold text-success">9</td>
+                      <td class="italic text-xs">Excelente manejo de Signals y Standalone Components.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <table class="table table-zebra w-full bg-base-100 rounded-lg overflow-hidden">
-            <thead>
-              <tr class="bg-base-300">
-                <th>Habilidad</th>
-                <th class="text-center">Mi Nota</th>
-                <th class="text-center">Nota Jefe</th>
-                <th>Comentarios</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="font-bold text-primary">Angular v19</td>
-                <td class="text-center">8</td>
-                <td class="text-center font-bold">9</td>
-                <td class="italic text-xs">Excelente progreso con signals.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          </div>
       </div>
-    </div>
+      </div>
 
   </div>
 </div>
