@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GestionHabilidades } from './gestion-habilidades';
+import { ErrorMessage } from './error-message';
 
-describe('GestionHabilidades', () => {
-  let component: GestionHabilidades;
-  let fixture: ComponentFixture<GestionHabilidades>;
+describe('ErrorMessage', () => {
+  let component: ErrorMessage;
+  let fixture: ComponentFixture<ErrorMessage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GestionHabilidades]
+      imports: [ErrorMessage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GestionHabilidades);
+    fixture = TestBed.createComponent(ErrorMessage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

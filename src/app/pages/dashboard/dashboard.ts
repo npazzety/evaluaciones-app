@@ -1,22 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../../shared/arboles/sidebar/sidebar';
+import { TopNavComponent } from '../../shared/arboles/top-nav/top-nav';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, SidebarComponent, TopNavComponent],
   templateUrl: './dashboard.html'
 })
-
-export class Dashboard {
-  private router = inject(Router);
-
-  // Obtenemos el rol del localStorage
-  userRole: string | null = localStorage.getItem('userRole');
-  emailUsuario: string | null = localStorage.getItem('userEmail');
-
-  logout() {
-    localStorage.clear(); // Limpia todo (auth y rol)
-    this.router.navigate(['/login']);
-  }
+export class DashboardComponent {
+  // Ya no necesitas inyectar Router aquí si no haces lógica propia
 }

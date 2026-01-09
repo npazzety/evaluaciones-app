@@ -1,0 +1,19 @@
+<div class="flex justify-between items-center mb-8">
+  <h2 class="text-2xl font-black italic text-[#002855]">Evaluaciones Pendientes</h2>
+</div>
+
+<div class="card bg-white border-2 border-dashed border-gray-100 hover:border-[#002855]/30 hover:bg-gray-50/50 transition-all cursor-pointer rounded-[2rem]"
+     (click)="onStart.emit()">
+  <div class="card-body flex-row justify-between items-center p-8">
+    <div class="flex items-center gap-6">
+      <div class="bg-[#002855]/10 text-[#002855] p-5 rounded-2xl">
+        <i class="fa-solid fa-file-signature text-3xl"></i>
+      </div>
+      <div>
+        <h4 class="text-xl font-bold text-gray-800">Autoevaluación de Desempeño 2026</h4>
+        <p class="text-sm text-gray-400 italic">Asignada por el Jefe de Departamento</p>
+      </div>
+    </div>
+    <button class="btn bg-[#002855] text-white rounded-full px-10 border-none shadow-lg">Comenzar</button>
+  </div>
+</div>

@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BrandSidebar } from "../../shared/ramas/brand-sidebar/brand-sidebar";
+import { PasswordInputComponent } from "../../shared/ramas/password-input/password-input";
+import { InputComponent } from "../../shared/hojas/input/input";
+import { AuthCard } from "../../shared/arboles/auth-card/auth-card";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BrandSidebar, PasswordInputComponent, InputComponent, AuthCard],
   templateUrl: './login.html'
 })
 export class Login {

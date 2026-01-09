@@ -1,0 +1,17 @@
+<div class="max-w-2xl mx-auto bg-white p-10 rounded-[3rem] border border-gray-100 shadow-2xl">
+  <div class="space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="form-control">
+        <label class="label font-bold text-[#002855] text-xs uppercase tracking-widest px-4">Fecha de Inicio</label>
+        <input type="date" [(ngModel)]="nuevaConfig.fechaInicio" class="input input-bordered input-lg focus:border-[#002855] rounded-2xl bg-gray-50" />
+      </div>
+      <div class="form-control">
+        <label class="label font-bold text-[#002855] text-xs uppercase tracking-widest px-4">Hora de Inicio</label>
+        <input type="time" [(ngModel)]="nuevaConfig.horaInicio" class="input input-bordered input-lg focus:border-[#002855] rounded-2xl bg-gray-50" />
+      </div>
+    </div>
+    <button (click)="submit()" class="btn bg-[#002855] hover:bg-[#001a38] btn-block btn-lg text-white font-black shadow-xl rounded-full border-none h-16">
+      PROGRAMAR AHORA
+    </button>
+  </div>
+</div>

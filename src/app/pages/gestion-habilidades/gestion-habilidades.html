@@ -1,78 +1,38 @@
-<div class="p-4 md:p-6 max-w-7xl mx-auto h-screen flex flex-col space-y-6">
+<div class="max-w-7xl mx-auto flex flex-col space-y-8 animate-in fade-in duration-700">
 
-  <header class="flex justify-between items-center bg-base-100 p-6 rounded-box border border-base-300 shadow-sm shrink-0">
-    <div>
-      <h1 class="text-3xl font-black tracking-tight text-primary">Portal de Evaluación</h1>
-      <p class="text-base-content/60 italic text-sm">Gestión de desempeño y feedback continuo</p>
+  <app-portal-header></app-portal-header>
+
+  <div class="bg-white rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden flex flex-col h-[calc(100vh-180px)]">
+
+    <div class="p-8 border-b border-gray-50 flex justify-between items-center bg-white shrink-0">
+      <div>
+        <h2 class="text-2xl font-black italic text-[#002855] tracking-tight">
+          {{ modoFormulario() ? 'Configurar Nueva Evaluación' : 'Historial de Evaluaciones' }}
+        </h2>
+      </div>
+
+      <button (click)="alternarVista()"
+              [ngClass]="modoFormulario() ? 'btn btn-ghost text-gray-400' : 'btn bg-[#002855] text-white px-10 rounded-full border-none shadow-lg'">
+        {{ modoFormulario() ? '✕ Cancelar' : '＋ Nueva Evaluación' }}
+      </button>
     </div>
-    <div class="badge badge-success badge-lg py-4 px-6 font-bold text-white shadow-sm">Periodo 2025</div>
-  </header>
 
-  <div role="tablist" class="tabs tabs-lifted tabs-lg w-full flex-1 flex flex-col min-h-0">
+    <div class="flex-1 overflow-y-auto p-8 bg-gray-50/50 custom-scroll">
 
-    <input type="radio" name="tabs_eval" role="tab" class="tab" aria-label="Gestión de Habilidades" checked />
-
-    <div role="tabpanel"
-         class="tab-content bg-base-100 border-base-300 rounded-box flex-1 flex flex-col overflow-hidden shadow-xl mb-4 h-[calc(100vh-200px)]">
-
-      <div class="p-6 border-b border-base-200 flex justify-between items-center bg-base-100 shrink-0">
-        <div>
-          <h2 class="text-2xl font-black italic text-base-content">
-            {{ modoFormulario() ? 'Configurar Nueva Evaluación' : 'Historial de Evaluaciones' }}
-          </h2>
+      @if (!modoFormulario()) {
+        <div class="grid gap-4 max-w-4xl mx-auto">
+          @for (prog of programaciones(); track prog.id) {
+            <app-eval-history-card
+              [fecha]="prog.fechaHabilitada"
+              [hora]="prog.horaInicio || 'No definidalternarVista'"
+              (onDelete)="eliminar(prog.id)">
+            </app-eval-history-card>
+          }
         </div>
+      } @else {
+        <app-eval-form (onSave)="crearEvaluacion($event)"></app-eval-form>
+      }
 
-        <button (click)="alternarVista()"
-                [class]="modoFormulario() ? 'btn btn-ghost btn-sm' : 'btn btn-primary text-white font-black px-8 shadow-lg'">
-          {{ modoFormulario() ? '✕ Cancelar' : '＋ Nueva Evaluación' }}
-        </button>
-      </div>
-
-      <div class="flex-1 overflow-y-auto p-8 custom-scroll bg-base-200/10">
-
-        @if (!modoFormulario()) {
-          <div class="grid gap-4 animate-in fade-in duration-500">
-            @for (prog of programaciones(); track prog.id) {
-              <div class="card bg-base-100 border border-base-300 shadow-sm hover:shadow-md transition-all">
-                <div class="card-body p-6 flex-row justify-between items-center">
-                  <div class="flex items-center gap-6">
-                    <div class="bg-primary text-white p-4 rounded-2xl font-black text-center min-w-[70px]">
-                      {{ prog.fechaInicio | date:'dd' }} <br>
-                      <span class="text-[10px] uppercase">{{ prog.fechaInicio | date:'MMM' }}</span>
-                    </div>
-                    <div>
-                      <h3 class="font-bold text-xl">Evaluación Programada</h3>
-                      <p class="opacity-60 italic">Hora: {{ prog.horaInicio }}</p>
-                    </div>
-                  </div>
-                  <button (click)="eliminar(prog.id)" class="btn btn-circle btn-ghost text-error">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                  </button>
-                </div>
-              </div>
-            }
-          </div>
-        } @else {
-          <div class="max-w-3xl mx-auto bg-base-100 p-10 rounded-3xl border border-base-300 shadow-2xl">
-            <div class="space-y-8">
-              <div class="grid grid-cols-2 gap-6">
-                <div class="form-control">
-                  <label class="label font-black text-xs uppercase">Fecha de Inicio</label>
-                  <input type="date" [(ngModel)]="nuevaConfig.fechaInicio" class="input input-bordered input-lg focus:input-primary" />
-                </div>
-                <div class="form-control">
-                  <label class="label font-black text-xs uppercase">Hora de Inicio</label>
-                  <input type="time" [(ngModel)]="nuevaConfig.horaInicio" class="input input-bordered input-lg focus:input-primary" />
-                </div>
-              </div>
-              <button class="btn btn-primary btn-block btn-lg text-white font-black shadow-xl" (click)="crearEvaluacion()">
-                PROGRAMAR AHORA
-              </button>
-            </div>
-          </div>
-        }
-        <div class="h-10"></div>
-      </div>
     </div>
   </div>
 </div>

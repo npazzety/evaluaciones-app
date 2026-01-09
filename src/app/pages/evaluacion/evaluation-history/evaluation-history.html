@@ -1,0 +1,9 @@
+<div class="flex justify-between items-center mb-8">
+  <h2 class="text-2xl font-black text-[#002855]">Registro Histórico Personal</h2>
+  <button class="btn btn-sm btn-outline border-red-200 text-red-500 hover:bg-red-50 rounded-full"
+          (click)="onExport.emit()">
+    <i class="fa-solid fa-file-pdf"></i> Exportar
+  </button>
+</div>
+
+<app-history-table></app-history-table>

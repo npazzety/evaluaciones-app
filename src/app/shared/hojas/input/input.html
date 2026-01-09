@@ -1,0 +1,16 @@
+<div class="form-control w-full">
+  <label class="label p-1 px-8">
+    <span class="label-text font-bold text-gray-500 uppercase text-[10px] tracking-widest">{{ label }}</span>
+  </label>
+  <input
+    style="border-radius: 15px;"
+    [type]="type"
+    [formControl]="control"
+    [placeholder]="placeholder"
+    class="input input-ghost w-full border-b-2 px-8 py-8 text-lg transition-all outline-none rounded-none focus:bg-transparent"
+    [ngClass]="control.touched && control.invalid ? 'border-red-500' : 'border-gray-200 focus:border-[#002855]'"
+  />
+  @if (control.touched && control.invalid) {
+    <p class="text-[10px] text-red-500 mt-1 font-bold px-8 italic">{{ errorMessage }}</p>
+  }
+</div>

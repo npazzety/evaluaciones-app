@@ -1,67 +1,44 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HabilidadesService, Programacion } from '../../core/services/habilidades';
+import { PortalHeaderComponent } from '../../shared/arboles/portal-header/portal-header';
+import { EvalHistoryCardComponent } from '../../shared/hojas/eval-history-card/eval-history-card';
+import { EvalFormComponent } from '../../shared/ramas/eval-form/eval-form';
+import { EvaluacionService, Evaluacion } from '../../core/services/evaluacion';
 
 @Component({
-  selector: 'app-gestion',
+  selector: 'app-gestion-habilidades',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, PortalHeaderComponent, EvalHistoryCardComponent, EvalFormComponent],
   templateUrl: './gestion-habilidades.html'
 })
-export class GestionHabilidades {
-  habilidadesService = inject(HabilidadesService);
+export class GestionHabilidadesComponent {
+  private evaluacionService = inject(EvaluacionService);
 
-  // Acceso a las signals del servicio
-  habilidades = this.habilidadesService.getHabilidades();
-  programaciones = this.habilidadesService.getProgramaciones();
-
-  // Signal para controlar la vista (Lista vs Formulario)
-  modoFormulario = signal<boolean>(false);
-
-  nuevaConfig = {
-    fechaInicio: '',
-    horaInicio: '',
-    habilitadoManual: true
-  };
+  modoFormulario = signal(false);
+  programaciones = signal<Evaluacion[]>(this.evaluacionService.getEvaluaciones());
 
   alternarVista() {
-    this.modoFormulario.update(val => !val);
-    if (!this.modoFormulario()) {
-      // Reset de campos al volver
-      this.nuevaConfig = { fechaInicio: '', horaInicio: '', habilitadoManual: true };
-    }
+    this.modoFormulario.update(v => !v);
   }
 
-  crearEvaluacion() {
-    if (!this.nuevaConfig.fechaInicio || !this.nuevaConfig.horaInicio) {
-      alert("Por favor completa fecha y hora.");
-      return;
-    }
+  crearEvaluacion(data: any) {
+    // 🛡️ Si data.horaInicio no viene, le asignamos un string vacío o un aviso
+    const horaValida: string = data.horaInicio || 'Sin hora';
 
-    const idsActivos = this.habilidades()
-      .filter(h => h.activa)
-      .map(h => h.id);
-
-    if (idsActivos.length === 0) {
-      alert("Debes activar al menos una habilidad para evaluar.");
-      return;
-    }
-
-    const nueva: Programacion = {
+    const nueva: Evaluacion = {
       id: Date.now(),
-      ...this.nuevaConfig,
-      habilidadesIds: idsActivos
+      titulo: `Evaluación - ${data.fechaInicio}`,
+      estado: 'PENDIENTE',
+      fechaHabilitada: data.fechaInicio,
+      horaInicio: horaValida // ✅ Ahora garantizamos que es un string
     };
 
-    this.habilidadesService.guardarEvaluacion(nueva);
-    alert("🚀 Evaluación Programada y Habilitada");
-    this.modoFormulario.set(false); // Volver al historial
+    this.evaluacionService.agregarEvaluacion(nueva);
+    this.programaciones.set(this.evaluacionService.getEvaluaciones());
+    this.modoFormulario.set(false);
   }
 
   eliminar(id: number) {
-    if(confirm('¿Eliminar esta programación?')) {
-      this.habilidadesService.eliminarProgramacion(id);
-    }
+    this.programaciones.update(list => list.filter(p => p.id !== id));
   }
 }
