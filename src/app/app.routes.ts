@@ -1,9 +1,9 @@
 import { Routes } from "@angular/router";
 import { DashboardComponent } from "./pages/dashboard/dashboard";
-import { Evaluacion } from "./pages/evaluacion/evaluacion";
-import { PendingEvaluationsComponent } from "./pages/evaluacion/pending-evaluations/pending-evaluations";
-import { EvaluationHistoryComponent } from "./pages/evaluacion/evaluation-history/evaluation-history";
-import { GestionHabilidadesComponent } from "./pages/gestion-habilidades/gestion-habilidades";
+import { Evaluacion } from "./pages/evaluation/evaluation";
+import { PendingEvaluationsComponent } from "./pages/evaluation/pending-evaluations/pending-evaluations";
+import { EvaluationHistoryComponent } from "./pages/evaluation/evaluation-history/evaluation-history";
+import { GestionHabilidadesComponent } from "./pages/skills-managament/skills-managament";
 import { Login } from "./pages/login/login";
 import { authGuard } from "./core/guards/auth-guard";
 

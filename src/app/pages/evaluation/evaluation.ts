@@ -7,7 +7,7 @@ import { SkillRatingCardComponent } from '../../shared/hojas/skill-rating-card/s
 import { AccessDeniedComponent } from '../../shared/ramas/access-denied/access-denied';
 import { HistoryTableComponent } from '../../shared/ramas/history-table/history-table';
 import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable' ;
+import autoTable from 'jspdf-autotable'
 
 @Component({
   selector: 'app-evaluacion',

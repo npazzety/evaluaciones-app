@@ -7,7 +7,7 @@ import { EvaluationDesignerComponent } from '../../shared/arboles/evaluation-des
   selector: 'app-gestion-habilidades',
   standalone: true,
   imports: [CommonModule, PortalHeaderComponent, EvaluationDesignerComponent],
-  templateUrl: './gestion-habilidades.html'
+  templateUrl: './skills-managament.html'
 })
 export class GestionHabilidadesComponent {
   modoFormulario = signal(false);
