@@ -1,0 +1,50 @@
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start animate-in fade-in duration-500">
+
+  <div class="lg:col-span-8">
+    <div class="card bg-white shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+
+      <div class="bg-slate-50 p-4 border-b shrink-0 flex justify-between items-center">
+        <span class="font-bold text-slate-600 uppercase text-xs tracking-widest">Listado de Competencias</span>
+        <span class="badge badge-primary font-bold">{{ selectedCount }} seleccionadas</span>
+      </div>
+
+      <div class="overflow-y-auto custom-scrollbar" style="height: 370px;">
+        <app-skill-list-container
+          [skills]="skills"
+          [selectedCount]="selectedCount"
+          (onUpdate)="onSkillUpdate.emit()">
+        </app-skill-list-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-4 sticky top-6">
+
+    <div class="mb-4">
+      <app-schedule-form
+        [fecha]="fecha"
+        [hora]="hora"
+        (fechaChange)="fechaChange.emit($event)"
+        (horaChange)="horaChange.emit($event)">
+      </app-schedule-form>
+    </div>
+
+    <div class="mb-4">
+      <app-weight-card
+        [total]="totalWeight"
+        (onSuggestIA)="onIAAdjust.emit()">
+      </app-weight-card>
+    </div>
+
+    <div class="card bg-white p-2 shadow-sm border border-slate-100">
+      <button
+        (click)="onPublish.emit()"
+        [disabled]="!isReadyToPublish"
+        class="btn btn-primary w-full btn-lg shadow-md hover:brightness-110 transition-all disabled:opacity-30 disabled:grayscale">
+        Publicar Evaluación
+      </button>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["jspdf", "node"] // <--- Agregamos estos dos
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts" // <--- Agregamos esta línea también por seguridad
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}

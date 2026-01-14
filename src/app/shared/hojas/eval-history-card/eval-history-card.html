@@ -1,0 +1,19 @@
+<div class="card bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all rounded-3xl overflow-hidden">
+  <div class="card-body p-6 flex-row justify-between items-center">
+    <div class="flex items-center gap-6">
+      <div class="bg-[#002855] text-white p-4 rounded-2xl font-black text-center min-w-[75px] shadow-lg">
+        {{ fecha | date:'dd' }} <br>
+        <span class="text-[10px] uppercase opacity-80">{{ fecha | date:'MMM' }}</span>
+      </div>
+      <div>
+        <h3 class="font-bold text-xl text-gray-800">Evaluación Programada</h3>
+        <p class="text-gray-400 italic flex items-center gap-2">
+          <i class="fa-regular fa-clock"></i> Hora: {{ hora }}
+        </p>
+      </div>
+    </div>
+    <button (click)="onDelete.emit()" class="btn btn-circle btn-ghost text-red-400 hover:text-red-600 hover:bg-red-50">
+      <i class="fa-solid fa-trash-can text-lg"></i>
+    </button>
+  </div>
+</div>

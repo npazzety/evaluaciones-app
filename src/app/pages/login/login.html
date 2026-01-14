@@ -1,0 +1,33 @@
+<div class="min-h-screen bg-gray-200 flex items-center justify-center p-4">
+  <app-auth-card>
+    <div class="text-center mb-12">
+      <h2 class="text-[#333] font-black text-2xl uppercase tracking-widest">Portal de Evaluación</h2>
+      <p class="text-gray-400 mt-2">Ingresa tus credenciales</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-8">
+
+      <app-input
+        label="Correo Electrónico"
+        placeholder="ejemplo@espresso.com"
+        type="email"
+        [control]="loginForm.get('email')"
+        errorMessage="Correo electrónico requerido o inválido">
+      </app-input>
+
+      <app-password-input
+        [control]="loginForm.get('password')">
+      </app-password-input>
+
+      <div class="pt-8 text-center">
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-64 rounded-full border-none shadow-xl text-xl normal-case h-16 disabled:bg-gray-300 transition-all">
+          Ingresar
+        </button>
+      </div>
+
+    </form>
+  </app-auth-card>
+</div>
