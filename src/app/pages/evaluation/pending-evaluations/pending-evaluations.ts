@@ -1,10 +1,11 @@
 import { Component, signal, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pending-evaluations',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './pending-evaluations.html'
 })
 export class PendingEvaluationsComponent {
