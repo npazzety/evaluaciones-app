@@ -8,8 +8,10 @@
       <div class="flex flex-col sm:flex-row items-center gap-8">
 
         <div class="avatar placeholder">
-          <div class="bg-slate-100 text-[#002855] rounded-2xl w-32 h-32 ring-4 ring-slate-50 shadow-inner">
-            <span class="text-5xl font-black uppercase">{{ user.firstName[0] }}</span>
+          <div class="bg-slate-100 text-[#002855] rounded-2xl w-32 h-32 ring-4 ring-slate-50 shadow-inner flex items-center justify-center">
+            <span class="text-5xl font-black uppercase leading-none">
+              {{ user.firstName[0] }}
+            </span>
           </div>
         </div>
 
@@ -40,7 +42,7 @@
         </div>
 
         <div class="flex justify-between items-center p-4 bg-slate-50/50 rounded-2xl border border-slate-100">
-          <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Correo Institucional</span>
+          <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Correo Empresarial</span>
           <span class="text-sm font-black text-[#002855]">{{ user.email }}</span>
         </div>
 
