@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, inject, computed } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from "@angular/router";
@@ -22,34 +22,53 @@ export class Evaluacion implements OnInit {
   private router = inject(Router);
 
   habilidadesActivas = signal<any[]>([]);
-  accesoPermitido = signal<boolean>(true);
-
-  // Usamos un signal para que Angular detecte el cambio de ruta al instante
   esFormulario = signal<boolean>(false);
+  isPendientesActive = signal<boolean>(false);
+  escalaPuntaje = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   ngOnInit() {
     this.cargarDatosPrueba();
+    this.actualizarEstadosVisuales(this.router.url);
 
-    // Verificamos la ruta al cargar
-    this.actualizarEstadoRuta(this.router.url);
-
-    // Escuchamos cambios de navegación para actualizar sin recargar
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.actualizarEstadoRuta(event.urlAfterRedirects);
+      this.actualizarEstadosVisuales(event.urlAfterRedirects || event.url);
     });
   }
 
-  private actualizarEstadoRuta(url: string) {
+  private actualizarEstadosVisuales(url: string) {
     this.esFormulario.set(url.includes('/form/'));
+    this.isPendientesActive.set(url.includes('/nueva') || url.includes('/form/'));
+  }
+
+  // Genera el fondo de "carga" azul que sigue al thumb del slider
+  getSliderBackground(value: number) {
+    const percentage = (value / 10) * 100;
+    return `linear-gradient(to right, #002855 ${percentage}%, #f1f5f9 ${percentage}%)`;
+  }
+
+  irAtras() {
+    this.router.navigate(['/dashboard/evaluacion/nueva']);
+  }
+
+  enviarEvaluacion() {
+    console.log("Datos para enviar:", this.habilidadesActivas());
+    // Aquí iría tu servicio de guardado
   }
 
   cargarDatosPrueba() {
     this.habilidadesActivas.set([
-      { id: 1, nombre: 'Comunicación Asertiva', ponderacion: 30, nota: 0 },
-      { id: 2, nombre: 'Trabajo en Equipo', ponderacion: 40, nota: 0 },
-      { id: 3, nombre: 'Resolución de Problemas', ponderacion: 30, nota: 0 }
+      { id: 1, nombre: 'Comunicación Asertiva', descripcion: 'Expresión clara e ideas respetuosas.', nota: 5 },
+      { id: 2, nombre: 'Trabajo en Equipo', descripcion: 'Colaboración activa en metas comunes.', nota: 0 },
+      { id: 3, nombre: 'Resolución de Problemas', descripcion: 'Eficacia para proponer soluciones.', nota: 0 },
+      { id: 4, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },
+      { id: 5, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },
+      { id: 6, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },
+      { id: 7, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },
+      { id: 8, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },,
+      { id: 9, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 },,
+      { id: 10, nombre: 'Liderazgo', descripcion: 'Capacidad de guiar y motivar grupos.', nota: 0 }
     ]);
   }
 }

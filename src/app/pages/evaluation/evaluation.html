@@ -1,25 +1,68 @@
-<div class="evaluation-portal p-4 sm:p-8">
+<div class="evaluation-portal p-4 sm:p-8 pb-32">
   <app-portal-header></app-portal-header>
 
-  <div [class.nav-sticky]="!esFormulario()"
-       [class.nav-static]="esFormulario()"
-       class="z-30 transition-all duration-200">
-
-    <div class="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm ml-0">
-      <a routerLink="nueva"
-         routerLinkActive="bg-[#002855] text-white shadow-md"
-         class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
+  <div [class.nav-sticky]="!esFormulario()" [class.nav-static]="esFormulario()" class="z-30 transition-all duration-200 w-fit rounded-2xl">
+    <div class="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm">
+      <a routerLink="nueva" [class.bg-[#002855]]="isPendientesActive()" [class.text-white]="isPendientesActive()" class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase transition-all px-6">
         Pendientes
       </a>
-      <a routerLink="historial"
-         routerLinkActive="bg-[#002855] text-white shadow-md"
-         class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
+      <a routerLink="historial" routerLinkActive="bg-[#002855] text-white shadow-md" class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase transition-all text-slate-500 px-6">
         Historial
       </a>
     </div>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-1" *ngIf="esFormulario()">
+    <button (click)="irAtras()" class="flex items-center gap-2 text-[#002855] font-black text-[10px] mb-6 uppercase tracking-widest hover:translate-x-[-2px] transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" /></svg>
+      Volver
+    </button>
+
+    <div class="grid gap-4 sm:grid-cols-1 lg:grid-cols-2"> <div *ngFor="let habilidad of habilidadesActivas()"
+           class="bg-white rounded-[1.5rem] p-5 shadow-sm border border-slate-100 flex flex-col justify-between">
+
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#002855] text-white rounded-xl flex-shrink-0 flex items-center justify-center text-lg font-black shadow-md">
+              {{ habilidad.nombre[0] }}
+            </div>
+            <div>
+              <h3 class="text-[#002855] font-black text-sm leading-tight">{{ habilidad.nombre }}</h3>
+              <p class="text-slate-400 text-[10px] leading-tight">{{ habilidad.descripcion }}</p>
+            </div>
+          </div>
+          <div class="bg-slate-50 border border-slate-100 px-3 py-1 rounded-lg text-center">
+            <span class="text-xs font-black text-[#002855]">{{ habilidad.nota }}</span>
+          </div>
+        </div>
+
+        <div class="px-1 mt-2">
+          <input type="range" [(ngModel)]="habilidad.nota" min="0" max="10" step="1"
+                 [style.background]="getSliderBackground(habilidad.nota)"
+                 class="custom-slider w-full h-2 rounded-full appearance-none cursor-pointer">
+
+          <div class="flex justify-between mt-3 px-1">
+            <div *ngFor="let num of escalaPuntaje" class="flex flex-col items-center">
+              <span class="text-[9px] font-bold transition-all" [ngClass]="habilidad.nota == num ? 'text-[#002855]' : 'text-slate-300'">
+                {{ num }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fixed bottom-6 right-6 flex gap-3 z-50 m-t-20">
+      <button (click)="irAtras()" class="bg-white text-[#002855] border-2 border-slate-100 px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-slate-50 transition-all">
+        Cancelar
+      </button>
+      <button (click)="enviarEvaluacion()" class="bg-[#002855] text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg hover:scale-105 transition-all">
+        Enviar Evaluación
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-4" *ngIf="!esFormulario()">
     <router-outlet></router-outlet>
   </div>
 </div>
