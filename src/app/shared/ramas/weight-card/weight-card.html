@@ -1,24 +1,35 @@
-<div class="card bg-white p-4 sm:p-6 border border-slate-100 shadow-sm rounded-2xl relative overflow-hidden">
-  <div class="hidden xs:block absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
+<div class="bg-white rounded-[3rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden group">
+  <div class="absolute -top-6 -right-6 w-24 h-24 bg-slate-50 rounded-full opacity-50 group-hover:scale-110 transition-transform"></div>
 
-  <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 relative z-10">
-    Ponderación Actual
-  </p>
+  <div class="relative z-10">
+    <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-4">
+      Total Ponderación
+    </p>
 
-  <div class="flex flex-col xs:flex-row justify-between items-start xs:items-center mb-4 gap-2 relative z-10">
-    <h2 class="text-4xl sm:text-5xl font-black text-[#1a3a0a] tracking-tighter">
-      {{ total }}<span class="text-xl sm:text-2xl ml-1">%</span>
-    </h2>
+    <div class="flex items-baseline gap-1 mb-8">
+      <h2 class="text-7xl font-black tracking-tighter transition-colors duration-500"
+          [style.color]="total === 100 ? '#f01a5d' : '#002855'">
+        {{ total }}
+      </h2>
+      <span class="text-2xl font-black text-slate-200">%</span>
 
-    <div *ngIf="total === 100"
-         class="badge bg-green-100 text-green-800 border-none font-bold p-2 sm:p-3 text-xs sm:text-sm">
-      🎯 LISTO
+      <div *ngIf="total === 100"
+           class="ml-auto bg-green-50 text-green-600 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-green-100 animate-bounce">
+        Listo 🎯
+      </div>
     </div>
+
+    <button (click)="onSuggestIA.emit()"
+            class="w-full bg-[#f01a5d] hover:bg-[#d61552] text-white py-4 px-6 rounded-[1.8rem] font-black text-[11px] uppercase tracking-widest shadow-[0_10px_25px_rgba(240,26,93,0.3)] hover:shadow-[0_15px_35px_rgba(240,26,93,0.4)] transition-all duration-300 flex items-center justify-center gap-3 active:scale-95">
+      <span class="text-base">✨</span>
+      <span>Sugerir con IA</span>
+    </button>
   </div>
 
-  <button (click)="onSuggestIA.emit()"
-          class="btn border-none normal-case text-white bg-[#e91e63] hover:bg-[#c2185b] rounded-full w-full gap-2 shadow-lg shadow-pink-100 py-2 sm:py-3 h-auto min-h-0 text-sm sm:text-base">
-    ✨ <span class="hidden xs:inline">Sugerir Pesos (IA)</span>
-       <span class="xs:hidden">Sugerir con IA</span>
-  </button>
+  <div class="absolute bottom-0 left-0 w-full h-1.5 bg-slate-50">
+    <div class="h-full bg-[#002855] transition-all duration-1000"
+         [style.width.%]="total > 100 ? 100 : total"
+         [class.bg-red-500]="total > 100"
+         [class.bg-[#f01a5d]]="total === 100"></div>
+  </div>
 </div>

@@ -4,6 +4,7 @@ import { Evaluacion } from "./pages/evaluation/evaluation";
 import { PendingEvaluationsComponent } from "./pages/evaluation/pending-evaluations/pending-evaluations";
 import { EvaluationHistoryComponent } from "./pages/evaluation/evaluation-history/evaluation-history";
 import { GestionHabilidadesComponent } from "./pages/skills-managament/skills-managament";
+import { SkillDesignerComponent } from "./pages/skills-managament/skill-designer/skill-designer"; // Importación nueva
 import { Login } from "./pages/login/login";
 import { ProfileComponent } from "./pages/profile/profile";
 import { authGuard } from "./core/guards/auth-guard";
@@ -22,12 +23,17 @@ export const routes: Routes = [
         children: [
           { path: 'nueva', component: PendingEvaluationsComponent },
           { path: 'historial', component: EvaluationHistoryComponent },
-          // Se añade la ruta para el formulario cargando el ID del bloque
           { path: 'form/:id', component: EvaluationFormComponent },
           { path: '', redirectTo: 'nueva', pathMatch: 'full' }
         ]
       },
-      { path: 'gestion', component: GestionHabilidadesComponent },
+      {
+        path: 'gestion',
+        component: GestionHabilidadesComponent,
+        children: [
+          { path: 'nuevo', component: SkillDesignerComponent } // Ruta para el diseño
+        ]
+      },
       { path: 'profile', component: ProfileComponent },
       { path: '', redirectTo: 'evaluacion', pathMatch: 'full' }
     ]

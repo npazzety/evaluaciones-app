@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EvaluationHistory } from './evaluation-history';
+import { SkillDesigner } from './skill-designer';
 
-describe('EvaluationHistory', () => {
-  let component: EvaluationHistory;
-  let fixture: ComponentFixture<EvaluationHistory>;
+describe('SkillDesigner', () => {
+  let component: SkillDesigner;
+  let fixture: ComponentFixture<SkillDesigner>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EvaluationHistory]
+      imports: [SkillDesigner]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EvaluationHistory);
+    fixture = TestBed.createComponent(SkillDesigner);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
