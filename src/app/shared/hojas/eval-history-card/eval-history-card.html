@@ -1,19 +1,29 @@
 <div class="card bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all rounded-3xl overflow-hidden">
-  <div class="card-body p-6 flex-row justify-between items-center">
-    <div class="flex items-center gap-6">
-      <div class="bg-[#002855] text-white p-4 rounded-2xl font-black text-center min-w-[75px] shadow-lg">
-        {{ fecha | date:'dd' }} <br>
-        <span class="text-[10px] uppercase opacity-80">{{ fecha | date:'MMM' }}</span>
+  <div class="card-body p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+    <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+      <div class="bg-[#002855] text-white p-3 sm:p-4 rounded-2xl font-black text-center min-w-[65px] sm:min-w-[75px] shadow-lg shrink-0">
+        <span class="text-xl sm:text-2xl">{{ fecha | date:'dd' }}</span> <br>
+        <span class="text-[9px] sm:text-[10px] uppercase opacity-80">{{ fecha | date:'MMM' }}</span>
       </div>
-      <div>
-        <h3 class="font-bold text-xl text-gray-800">Evaluación Programada</h3>
-        <p class="text-gray-400 italic flex items-center gap-2">
+
+      <div class="min-w-0 flex-1">
+        <h3 class="font-bold text-lg sm:text-xl text-gray-800 truncate">Evaluación Programada</h3>
+        <p class="text-gray-400 italic flex items-center gap-2 text-sm sm:text-base">
           <i class="fa-regular fa-clock"></i> Hora: {{ hora }}
         </p>
       </div>
+
+      <button (click)="onDelete.emit()"
+              class="btn btn-circle btn-ghost text-red-400 hover:text-red-600 hover:bg-red-50 sm:hidden">
+        <i class="fa-solid fa-trash-can text-base"></i>
+      </button>
     </div>
-    <button (click)="onDelete.emit()" class="btn btn-circle btn-ghost text-red-400 hover:text-red-600 hover:bg-red-50">
+
+    <button (click)="onDelete.emit()"
+            class="hidden sm:flex btn btn-circle btn-ghost text-red-400 hover:text-red-600 hover:bg-red-50 shrink-0">
       <i class="fa-solid fa-trash-can text-lg"></i>
     </button>
+
   </div>
 </div>

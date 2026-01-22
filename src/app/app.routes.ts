@@ -5,6 +5,7 @@ import { PendingEvaluationsComponent } from "./pages/evaluation/pending-evaluati
 import { EvaluationHistoryComponent } from "./pages/evaluation/evaluation-history/evaluation-history";
 import { GestionHabilidadesComponent } from "./pages/skills-managament/skills-managament";
 import { Login } from "./pages/login/login";
+import { ProfileComponent } from "./pages/profile/profile";
 import { authGuard } from "./core/guards/auth-guard";
 
 export const routes: Routes = [
@@ -23,10 +24,11 @@ export const routes: Routes = [
           { path: '', redirectTo: 'nueva', pathMatch: 'full' }
         ]
       },
-      // 💡 Cambiado a 'gestion' para que coincida con el error que te salía
       { path: 'gestion', component: GestionHabilidadesComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '', redirectTo: 'evaluacion', pathMatch: 'full' }
     ]
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];

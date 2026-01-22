@@ -1,7 +1,13 @@
-<div class="flex-1 divide-y divide-slate-100 h-[370px] overflow-y-auto custom-scrollbar">
-  <app-skill-selector-item
-    *ngFor="let s of skills"
-    [skill]="s"
-    (changed)="onUpdate.emit()">
-  </app-skill-selector-item>
+<div class="flex-1 divide-y divide-slate-100 min-h-[200px] max-h-[400px] sm:h-[370px] overflow-y-auto custom-scrollbar bg-white rounded-xl sm:rounded-none">
+
+  <div class="pb-20 sm:pb-0"> <app-skill-selector-item
+      *ngFor="let s of skills"
+      [skill]="s"
+      (changed)="onUpdate.emit()"
+      class="block active:bg-slate-50 transition-colors">
+    </app-skill-selector-item>
+  </div>
+
 </div>
+
+

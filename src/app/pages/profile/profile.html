@@ -1,0 +1,55 @@
+<div class="p-4 sm:p-8 animate-in fade-in duration-700">
+
+  <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden max-w-5xl mx-auto">
+
+    <div class="h-4 bg-[#002855] w-full"></div>
+
+    <div class="p-6 sm:p-10">
+      <div class="flex flex-col sm:flex-row items-center gap-8">
+
+        <div class="avatar placeholder">
+          <div class="bg-slate-100 text-[#002855] rounded-2xl w-32 h-32 ring-4 ring-slate-50 shadow-inner">
+            <span class="text-5xl font-black uppercase">{{ user.firstName[0] }}</span>
+          </div>
+        </div>
+
+        <div class="text-center sm:text-left space-y-2 flex-1">
+          <h1 class="text-3xl font-black text-slate-800 tracking-tight leading-none">
+            {{ user.firstName }} {{ user.lastName }}
+          </h1>
+          <div class="flex items-center justify-center sm:justify-start gap-2 text-slate-400">
+            <i class="fa-solid fa-envelope text-sm"></i>
+            <span class="font-medium">{{ user.email }}</span>
+          </div>
+          <div class="pt-4">
+             <span class="badge badge-lg bg-slate-100 text-slate-600 border-none font-bold py-4 px-6 uppercase text-[10px] tracking-widest">
+               Acceso Colaborador
+             </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider my-8 opacity-50"></div>
+
+      <div class="grid gap-4">
+        <label class="text-[10px] font-black uppercase tracking-[0.2em] text-[#C49A6C]">Detalles de la Cuenta</label>
+
+        <div class="flex justify-between items-center p-4 bg-slate-50/50 rounded-2xl border border-slate-100">
+          <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Nombre Completo</span>
+          <span class="text-sm font-black text-[#002855]">{{ user.firstName }} {{ user.lastName }}</span>
+        </div>
+
+        <div class="flex justify-between items-center p-4 bg-slate-50/50 rounded-2xl border border-slate-100">
+          <span class="text-sm font-bold text-slate-500 uppercase tracking-tighter">Correo Institucional</span>
+          <span class="text-sm font-black text-[#002855]">{{ user.email }}</span>
+        </div>
+
+        <div class="p-4 bg-orange-50/30 rounded-2xl border border-orange-100 text-center">
+          <p class="text-xs font-bold text-orange-400 uppercase tracking-widest italic">
+            La información adicional se sincronizará desde la base de datos central.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

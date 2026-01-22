@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../../shared/arboles/sidebar/sidebar';
-import { TopNavComponent } from '../../shared/arboles/top-nav/top-nav';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, TopNavComponent],
-  templateUrl: './dashboard.html'
+  imports: [CommonModule, RouterOutlet, SidebarComponent],
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.css']
 })
 export class DashboardComponent {
-  // Ya no necesitas inyectar Router aquí si no haces lógica propia
+  isSidebarVisible = signal(true);
+
+  toggleSidebar() {
+    this.isSidebarVisible.update(v => !v);
+  }
 }

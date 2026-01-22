@@ -1,19 +1,25 @@
-<div class="card bg-white p-5 border border-slate-100 shadow-sm rounded-2xl">
-  <h3 class="text-[11px] font-bold mb-4 text-slate-400 uppercase tracking-widest flex items-center gap-2">
-    <span class="w-2 h-2 rounded-full bg-orange-500"></span> Programación de Evaluación
+<div class="card bg-white p-4 sm:p-5 border border-slate-100 shadow-sm rounded-2xl">
+  <h3 class="text-[10px] sm:text-[11px] font-bold mb-5 sm:mb-4 text-slate-400 uppercase tracking-widest flex items-center gap-2">
+    <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+    Programación de Evaluación
   </h3>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4 mt-2">
+
     <div class="relative">
-      <label class="text-[10px] font-bold text-slate-500 absolute -top-2 left-3 bg-white px-1 z-10">FECHA DE INICIO</label>
+      <label class="text-[9px] sm:text-[10px] font-bold text-slate-500 absolute -top-2.5 left-3 bg-white px-1 z-10 transition-all">
+        FECHA DE INICIO
+      </label>
       <input type="date" [ngModel]="fecha" (ngModelChange)="onFechaChange($event)"
-             class="input input-bordered w-full border-slate-200 focus:border-green-800 focus:ring-1 focus:ring-green-800 rounded-xl text-sm h-12" />
+             class="input input-bordered w-full border-slate-200 focus:border-green-800 focus:ring-1 focus:ring-green-800 rounded-xl text-sm h-12 bg-transparent appearance-none" />
     </div>
 
     <div class="relative">
-      <label class="text-[10px] font-bold text-slate-500 absolute -top-2 left-3 bg-white px-1 z-10">HORA DE APERTURA</label>
+      <label class="text-[9px] sm:text-[10px] font-bold text-slate-500 absolute -top-2.5 left-3 bg-white px-1 z-10 transition-all">
+        HORA DE APERTURA
+      </label>
       <input type="time" [ngModel]="hora" (ngModelChange)="onHoraChange($event)"
-             class="input input-bordered w-full border-slate-200 focus:border-green-800 focus:ring-1 focus:ring-green-800 rounded-xl text-sm h-12" />
+             class="input input-bordered w-full border-slate-200 focus:border-green-800 focus:ring-1 focus:ring-green-800 rounded-xl text-sm h-12 bg-transparent appearance-none" />
     </div>
   </div>
 </div>

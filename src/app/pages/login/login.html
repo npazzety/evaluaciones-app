@@ -1,11 +1,14 @@
-<div class="min-h-screen bg-gray-200 flex items-center justify-center p-4">
+<div class="min-h-screen bg-gray-200 flex items-center justify-center p-2 sm:p-4">
+
   <app-auth-card>
-    <div class="text-center mb-12">
-      <h2 class="text-[#333] font-black text-2xl uppercase tracking-widest">Portal de Evaluación</h2>
-      <p class="text-gray-400 mt-2">Ingresa tus credenciales</p>
+    <div class="text-center mb-6 sm:mb-12">
+      <h2 class="text-[#333] font-black text-xl sm:text-2xl uppercase tracking-widest">
+        Portal de Evaluación
+      </h2>
+      <p class="text-gray-400 mt-2 text-sm sm:text-base">Ingresa tus credenciales</p>
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-8">
+    <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-6 sm:space-y-8">
 
       <app-input
         label="Correo Electrónico"
@@ -19,11 +22,11 @@
         [control]="loginForm.get('password')">
       </app-password-input>
 
-      <div class="pt-8 text-center">
+      <div class="pt-4 sm:pt-8 text-center">
         <button
           type="submit"
           [disabled]="loginForm.invalid"
-          class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-64 rounded-full border-none shadow-xl text-xl normal-case h-16 disabled:bg-gray-300 transition-all">
+          class="btn bg-[#002855] hover:bg-[#001a38] text-white w-full md:w-64 rounded-full border-none shadow-xl text-lg sm:text-xl normal-case h-14 sm:h-16 disabled:bg-gray-300 transition-all active:scale-95">
           Ingresar
         </button>
       </div>

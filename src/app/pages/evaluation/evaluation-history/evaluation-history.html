@@ -1,9 +1,48 @@
-<div class="flex justify-between items-center mb-8">
-  <h2 class="text-2xl font-black text-[#002855]">Registro Histórico Personal</h2>
-  <button class="btn btn-sm btn-outline border-red-200 text-red-500 hover:bg-red-50 rounded-full"
-          (click)="onExport.emit()">
-    <i class="fa-solid fa-file-pdf"></i> Exportar
-  </button>
-</div>
+<div class="space-y-6">
+  <div class="flex justify-between items-center bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+    <div class="flex items-center gap-4">
+      <div class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+      </div>
+      <h2 class="text-xl font-black text-slate-800 uppercase tracking-tighter">Año 2025</h2>
+    </div>
 
-<app-history-table></app-history-table>
+    <button (click)="descargarPDF()" class="btn btn-ghost gap-2 text-[#002855] font-bold border-slate-200 rounded-xl">
+      <i class="fa-solid fa-download"></i>
+      Descargar Todo
+    </button>
+  </div>
+
+  <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+    <div class="grid grid-cols-12 gap-4 p-5 bg-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
+      <div class="col-span-5 pl-4">Habilidad / Competencia</div>
+      <div class="col-span-2 text-center">Mi Autoevaluación</div>
+      <div class="col-span-2 text-center">Evaluación Jefe</div>
+      <div class="col-span-3 text-center">Acciones</div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4 p-6 items-center border-b border-slate-50 hover:bg-slate-50/30 transition-all">
+      <div class="col-span-5 flex items-center gap-4">
+        <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div>
+          <p class="font-black text-slate-700">Liderazgo y Gestión</p>
+          <p class="text-[10px] text-slate-400">Evaluado en Enero 2026</p>
+        </div>
+      </div>
+
+      <div class="col-span-2 text-center font-black text-[#002855] text-lg">95</div>
+
+      <div class="col-span-2 text-center font-black text-orange-500 text-lg">90</div>
+
+      <div class="col-span-3 flex justify-center gap-2">
+        <button class="btn btn-sm bg-slate-100 border-none rounded-lg text-xs font-bold px-4">Ver Detalle</button>
+        <button class="btn btn-sm btn-square bg-slate-100 border-none rounded-lg">
+          <i class="fa-solid fa-file-pdf text-red-400"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,17 +1,23 @@
-<div class="drawer lg:drawer-open h-screen overflow-hidden">
-  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+<div class="dashboard-container">
+  <aside class="sidebar-aside" [class.is-hidden]="!isSidebarVisible()">
+    <div class="sidebar-fixed-content">
+      <app-sidebar (toggleEvent)="toggleSidebar()"></app-sidebar>
+    </div>
+  </aside>
 
-  <div class="drawer-content flex flex-col h-full bg-gray-50">
+  <div class="main-wrapper" [class.with-floating-button]="!isSidebarVisible()">
+    <button
+      *ngIf="!isSidebarVisible()"
+      (click)="toggleSidebar()"
+      class="menu-toggle-btn floating"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-    <app-top-nav class="shrink-0"></app-top-nav>
-
-    <main class="flex-1 overflow-y-auto p-6 md:p-10 custom-scroll">
-      <router-outlet></router-outlet>
+    <main class="scrollable-content custom-scroll">
+      <div class="page-container">
+        <router-outlet></router-outlet>
+      </div>
     </main>
-  </div>
-
-  <div class="drawer-side z-40 h-full">
-    <label for="my-drawer-2" class="drawer-overlay"></label>
-    <app-sidebar class="h-full"></app-sidebar>
   </div>
 </div>
