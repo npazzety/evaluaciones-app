@@ -15,20 +15,24 @@
     </div>
   </div>
 
-  <div class="sticky top-0 z-30 bg-slate-50/90 backdrop-blur-md py-4 transition-all">
-    <div class="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm">
-      <a routerLink="nueva"
-         routerLinkActive="bg-[#002855] text-white shadow-md"
-         class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
-        Pendientes
-      </a>
-      <a routerLink="historial"
-         routerLinkActive="bg-[#002855] text-white shadow-md"
-         class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
-        Historial
-      </a>
-    </div>
+  <div class="sticky top-0 z-30 py-4 transition-all">
+
+  <div class="flex items-center gap-2 p-1 bg-white/80 backdrop-blur-md border border-slate-200 rounded-2xl shadow-lg max-w-sm">
+
+    <a routerLink="nueva"
+       routerLinkActive="bg-[#002855] text-white shadow-md"
+       class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
+      Pendientes
+    </a>
+
+    <a routerLink="historial"
+       routerLinkActive="bg-[#002855] text-white shadow-md"
+       class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-tight transition-all text-slate-500">
+      Historial
+    </a>
+
   </div>
+</div>
 
   <div class="pb-10">
     <router-outlet></router-outlet>

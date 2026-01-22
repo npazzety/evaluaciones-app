@@ -1,0 +1,60 @@
+/* Contenedor que permite el 'sticky' */
+.sticky-nav-container {
+  position: sticky;
+  top: 1rem; /* Distancia del borde superior al hacer scroll */
+  z-index: 40;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center; /* Centra el menú compacto */
+  pointer-events: none; /* Permite hacer click a través del contenedor si fuera necesario */
+}
+
+/* El menú real: SOLO el tamaño de las opciones */
+.compact-nav {
+  pointer-events: auto; /* Reactiva los clicks en el menú */
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  width: fit-content; /* CLAVE: Ajusta el ancho al contenido */
+}
+
+.nav-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-btn.active {
+  background: #002855;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 40, 85, 0.2);
+}
+
+/* Estilos de las tarjetas para que se vean como en tu imagen */
+.activity-card {
+  background: white;
+  border-radius: 2rem;
+  padding: 1.5rem 2rem;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+}
+
+.activity-card:hover {
+  transform: translateY(-2px);
+  border-color: #e2e8f0;
+}
