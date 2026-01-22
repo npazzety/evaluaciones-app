@@ -2,7 +2,7 @@
   <app-portal-header></app-portal-header>
 
   <div [class.nav-sticky]="!esFormulario()" [class.nav-static]="esFormulario()" class="z-30 transition-all duration-200 w-fit rounded-2xl mt-0.5">
-    <div class="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded-2xl shadow-sm max-w-sm">
+    <div class="flex items-center gap-2 p-1 bg-white border border-slate-200 rounded-2xl max-w-sm">
       <a routerLink="nueva" [class.bg-[#002855]]="isPendientesActive()" [class.text-white]="isPendientesActive()" class="flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase transition-all px-6">
         Pendientes
       </a>
